@@ -14,6 +14,10 @@ A high-performance URL shortener service built with NestJS, MySQL, and Redis.
 - MySQL 8+
 - Redis 8+
 
+### ERP Diagram
+**System design for url shortener service**
+![ERP Diagram](./assets/url_shortener_diagram.png)
+
 ### Installation
 
 1. Clone and install dependencies:
