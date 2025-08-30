@@ -1,6 +1,11 @@
 import { IsNotEmpty, IsString, IsUrl } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class ShortenUrlDto {
+  @ApiProperty({
+    description: 'Long URL to be shortened',
+    example: 'https://example.com',
+  })
   @IsNotEmpty({ message: 'URL cannot be empty' })
   @IsString({ message: 'URL must be a string' })
   @IsUrl(

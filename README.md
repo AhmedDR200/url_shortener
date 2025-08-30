@@ -33,7 +33,7 @@ A high-performance URL shortener service built with NestJS, MySQL, and Redis.
    ```bash
    pnpm run db:migrate
    ```
-### Note: If you are using a different database, you will need to modify the configuration in `src/config/config.ts`.
+**Note: If you are using a different database, you will need to modify the configuration in `src/config/config.ts`.**
 
 4. Start the server:
    ```bash
@@ -88,11 +88,5 @@ x-api-key: your-api-key
 - **Limits**: 10 requests/minute per IP for public endpoints
 
 ## 📚 API Docs
-Access interactive documentation at `http://localhost:3000/api` when running locally.
-
-**Response**
-```json
-{
-  "long_url": "https://example.com/very/long/url"
-}
-```
+Access interactive documentation at `http://localhost:3000/api/docs` when running locally.
+apply `x-api-key` header with your api key in the documentation on all requests, but if you are using postman you can add it to the headers of shorten and allowlist requests
