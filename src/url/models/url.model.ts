@@ -1,26 +1,18 @@
-import { Table, Column, Model, DataType, PrimaryKey, Default } from 'sequelize-typescript';
+import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { UrlAttributes } from '../interfaces/url.interface';
 
-@Table
-export class Url extends Model<Url> {
-    @PrimaryKey
-    @Default(DataType.UUIDV4)
-    @Column(DataType.UUID)
-    declare id: string;
+@Table({ tableName: 'url', timestamps: true })
+export class Url extends Model<UrlAttributes> implements UrlAttributes {
+  @Column({
+    type: DataType.STRING,
+    unique: true,
+    allowNull: false,
+  })
+  declare shortCode: string;
 
-    @Column({
-        type: DataType.STRING,
-        allowNull: false,
-    })
-    longUrl: string;
-
-    @Column({
-        type: DataType.STRING,
-        unique: true,
-        allowNull: false,
-    })
-    shortCode: string;
-
-    @Default(0)
-    @Column(DataType.INTEGER)
-    hits: number;
+  @Column({
+    type: DataType.TEXT,
+    allowNull: false,
+  })
+  declare longUrl: string;
 }

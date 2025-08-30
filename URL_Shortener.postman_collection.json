@@ -1,0 +1,88 @@
+{
+  "info": {
+    "name": "URL Shortener API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "your-postman-id-here"
+  },
+  "item": [
+    {
+      "name": "Shorten URL",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "x-api-key",
+            "value": "your-api-key-here",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "\"https://example.com/very/long/url/to/be/shortened\""
+        },
+        "url": {
+          "raw": "{{base_url}}/url/shorten",
+          "host": ["{{base_url}}"],
+          "path": ["url", "shorten"]
+        },
+        "description": "Create a short URL from a long URL"
+      },
+      "response": []
+    },
+    {
+      "name": "Resolve URL",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/url/abc123",
+          "host": ["{{base_url}}"],
+          "path": ["url", "abc123"]
+        },
+        "description": "Resolve a short URL to its original URL (will redirect)"
+      },
+      "response": []
+    },
+    {
+      "name": "Add to Allowlist",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "x-api-key",
+            "value": "your-api-key-here",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"domain\": \"example.com\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/url/allowlist",
+          "host": ["{{base_url}}"],
+          "path": ["url", "allowlist"]
+        },
+        "description": "Add a domain to the allowlist"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ]
+}

@@ -1,31 +1,191 @@
+# URL Shortener Service
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+[![NestJS](https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white)](https://nestjs.com/)
+[![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-badge&logo=redis&logoColor=white)](https://redis.io/)
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+A high-performance URL shortener service built with NestJS, MySQL, and Redis. This service provides secure and scalable URL shortening with domain allowlisting and analytics.
 
-## Description
+## Features
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **URL Shortening**: Convert long URLs to short, memorable codes
+- **Domain Allowlisting**: Only shorten URLs from allowed domains
+- **Rate Limiting**: Protect the API from abuse
+- **Caching**: Improve performance with Redis caching
+- **Analytics**: Track URL hits and usage patterns
+- **RESTful API**: Well-documented endpoints with Swagger
+- **Authentication**: Secure API with API keys
 
-## Project setup
+## Prerequisites
+
+- Node.js (v16 or later)
+- MySQL (v5.7 or later)
+- Redis (v6 or later)
+- npm or yarn
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/url-shortener.git
+   cd url-shortener
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Set up the environment:
+   ```bash
+   cp .env.example .env
+   ```
+   Update the `.env` file with your configuration.
+
+4. Set up the database:
+   ```bash
+   # Run migrations
+   npm run db:migrate
+   
+   # (Optional) Seed the database with test data
+   # npm run db:seed:all
+   ```
+
+5. Start the development server:
+   ```bash
+   npm run start:dev
+   ```
+
+The API will be available at `http://localhost:3000` by default.
+
+## API Documentation
+
+Once the server is running, you can access the interactive API documentation at:
+- Swagger UI: http://localhost:3000/api
+- JSON Schema: http://localhost:3000/api-json
+
+## API Endpoints
+
+### Shorten a URL
+
+```http
+POST /api/shorten
+Content-Type: application/json
+X-API-Key: your-api-key
+
+{
+  "long_url": "https://example.com/very/long/url"
+}
+```
+
+**Response**
+```json
+{
+  "short": "abc123"
+}
+```
+
+### Resolve a Short URL
+
+```http
+GET /api/resolve/abc123
+```
+
+**Response**
+```json
+{
+  "long_url": "https://example.com/very/long/url"
+}
+```
+
+## Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `PORT` | Port to run the server on | `3000` |
+| `NODE_ENV` | Node environment | `development` |
+| `DB_HOST` | MySQL host | `localhost` |
+| `DB_PORT` | MySQL port | `3306` |
+| `DB_USER` | MySQL username | `root` |
+| `DB_PASS` | MySQL password |  |
+| `DB_NAME` | MySQL database name | `url_shortener` |
+| `REDIS_HOST` | Redis host | `localhost` |
+| `REDIS_PORT` | Redis port | `6379` |
+| `API_KEY` | API key for authentication |  |
+| `THROTTLE_TTL` | Rate limit time window (seconds) | `60` |
+| `THROTTLE_LIMIT` | Max requests per time window | `100` |
+
+## Development
+
+### Running the app
+
+```bash
+# development
+$ npm run start
+
+# watch mode
+$ npm run start:dev
+
+# production mode
+$ npm run start:prod
+```
+
+### Test
+
+```bash
+# unit tests
+$ npm run test
+
+# e2e tests
+$ npm run test:e2e
+
+# test coverage
+$ npm run test:cov
+```
+
+## Database Migrations
+
+To create a new migration:
+```bash
+npm run db:create migration-name
+```
+
+To run migrations:
+```bash
+npm run db:migrate
+```
+
+To rollback the last migration:
+```bash
+npm run db:migrate:undo
+```
+
+## Deployment
+
+1. Build the application:
+   ```bash
+   npm run build
+   ```
+
+2. Start the production server:
+   ```bash
+   npm run start:prod
+   ```
+
+## License
+
+This project is [MIT licensed](LICENSE).
+
+## Support
+
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
 ```bash
 $ pnpm install
